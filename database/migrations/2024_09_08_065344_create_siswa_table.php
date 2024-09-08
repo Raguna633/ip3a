@@ -4,29 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateSiswaTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->string('divisi');
-            $table->string('nama');
+            $table->string('nama_lengkap');
             $table->string('kelas');
-            $table->string('gender');
             $table->string('konsulat');
+            $table->string('gender');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('siswa');
     }
-};
+}
+
