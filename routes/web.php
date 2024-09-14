@@ -30,3 +30,8 @@ Route::prefix('admin')->group(function() {
     Route::put('divisi/{id}', [AdminDivisiController::class, 'update'])->name('admin.divisi.update');
     Route::delete('divisi/{id}', [AdminDivisiController::class, 'destroy'])->name('admin.divisi.destroy');
 });
+
+
+//page divisi
+Route::get('/divisis', [DivisiController::class, 'index'])->name('divisis.index');
+Route::get('/divisis/{id}', [DivisiController::class, 'show'])->name('divisis.show');

@@ -14,6 +14,7 @@ class CreateSiswaTable extends Migration
             $table->string('kelas');
             $table->string('konsulat');
             $table->string('gender');
+            $table->string('divisi');
             $table->string('foto')->nullable();
             $table->timestamps();
         });

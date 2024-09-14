@@ -26,6 +26,7 @@ class AdminSiswaController extends Controller
             'kelas' => 'required|string|max:50',
             'konsulat' => 'required|string|max:100',
             'gender' => 'required|string|max:50',
+            'divisi' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -54,6 +55,7 @@ class AdminSiswaController extends Controller
             'kelas' => 'required|string|max:50',
             'konsulat' => 'required|string|max:100',
             'gender' => 'required|string|max:50',
+            'divisi' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 

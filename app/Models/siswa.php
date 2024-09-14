@@ -11,7 +11,7 @@ class Siswa extends Model
 
     protected $table = 'siswa';
 
-    protected $fillable = ['nama_lengkap', 'kelas', 'konsulat', 'gender', 'foto'];
+    protected $fillable = ['nama_lengkap', 'kelas', 'konsulat', 'gender', 'divisi', 'foto'];
 
     public function divisi()
     {

@@ -26,6 +26,10 @@
         <input type="text" class="form-control" id="gender" name="gender" value="{{ isset($siswa) ? $siswa->gender : '' }}">
     </div>
     <div class="mb-3">
+        <label for="divisi" class="form-label">Divisi</label>
+        <input type="text" class="form-control" id="divisi" name="divisi" value="{{ isset($siswa) ? $siswa->divisi : '' }}">
+    </div>
+    <div class="mb-3">
         <label for="foto" class="form-label">Foto</label>
         <input type="file" class="form-control" id="foto" name="foto">
         @if(isset($siswa) && $siswa->foto)
