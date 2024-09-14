@@ -8,7 +8,7 @@ class CreateDivisiTable extends Migration
 {
     public function up()
     {
-        Schema::create('divisi', function (Blueprint $table) {
+        Schema::create('divisis', function (Blueprint $table) {
             $table->id();
             $table->string('nama_divisi');
             $table->string('foto')->nullable();
@@ -18,7 +18,7 @@ class CreateDivisiTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('divisi');
+        Schema::dropIfExists('divisis');
     }
 }
 

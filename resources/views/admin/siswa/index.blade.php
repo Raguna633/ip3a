@@ -33,6 +33,7 @@
             <td>{{ $item->nama_lengkap }}</td>
             <td>{{ $item->kelas }}</td>
             <td>{{ $item->konsulat }}</td>
+            <td>{{ $item->divisi }}</td>
             <td>
                 @if($item->foto)
                 <img src="{{ asset('storage/' . $item->foto) }}" width="50" height="50" alt="{{ $item->nama_lengkap }}">

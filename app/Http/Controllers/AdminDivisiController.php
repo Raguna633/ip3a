@@ -20,21 +20,23 @@ class AdminDivisiController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nama_divisi' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+{
+    $validated = $request->validate([
+        'nama_divisi' => 'required|string|max:255',
+        'foto' => 'nullable|image|mimes:jpeg,png,jpg',
+    ]);
 
-        $divisi = new divisi($validated);
-        if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('fotos', 'public');
-            $divisi->foto = $path;
-        }
-        $divisi->save();
-
-        return redirect()->route('admin.divisi.index')->with('success', 'divisi berhasil ditambahkan');
+    // Simpan file foto
+    if ($request->hasFile('foto')) {
+        $path = $request->file('foto')->store('foto_divisi', 'public');
+        $validated['foto'] = $path;
     }
+
+    Divisi::create($validated);
+
+    return redirect()->route('admin.divisi.index')->with('success', 'Divisi berhasil ditambahkan!');
+}
+
 
     public function edit($id)
     {

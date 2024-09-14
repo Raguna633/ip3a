@@ -9,12 +9,12 @@ class Siswa extends Model
 {
     use HasFactory;
 
-    protected $table = 'siswa';
+    protected $table = 'siswas';
 
     protected $fillable = ['nama_lengkap', 'kelas', 'konsulat', 'gender', 'divisi', 'foto'];
 
     public function divisi()
     {
-        return $this->belongsToMany(Divisi::class)->withPivot('alasan')->withTimestamps();
+        return $this->belongsToMany(Divisi::class)->withPivot('divisis')->withTimestamps();
     }
 }

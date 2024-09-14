@@ -8,7 +8,7 @@ class CreateSiswaTable extends Migration
 {
     public function up()
     {
-        Schema::create('siswa', function (Blueprint $table) {
+        Schema::create('siswas', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap');
             $table->string('kelas');
@@ -22,7 +22,7 @@ class CreateSiswaTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('siswa');
+        Schema::dropIfExists('siswas');
     }
 }
 

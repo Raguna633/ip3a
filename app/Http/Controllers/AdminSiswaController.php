@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Siswa;
+use App\Models\Divisi;
 
 class AdminSiswaController extends Controller
 {
@@ -11,12 +12,16 @@ class AdminSiswaController extends Controller
     {
         $sortOrder = $request->input('sort', 'asc');
         $siswa = Siswa::orderBy('nama_lengkap', $sortOrder)->paginate(10);
-        return view('admin.siswa.index', compact('siswa', 'sortOrder'));
+        $divisi = Divisi::orderBy('nama_divisi', $sortOrder)->paginate(10);
+        return view('admin.siswa.index', compact('siswa', 'divisi', 'sortOrder'));
     }
 
     public function create()
     {
-        return view('admin.siswa.create');
+        $divisi = Divisi::get();
+        return view('admin.siswa.create', [
+            'divisi' => $divisi,
+        ]);
     }
 
     public function store(Request $request)
@@ -31,11 +36,16 @@ class AdminSiswaController extends Controller
         ]);
 
         $siswa = new Siswa($validated);
+        // Simpan file foto
         if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('fotos', 'public');
-            $siswa->foto = $path;
+            $path = $request->file('foto')->store('foto_siswa', 'public');
+            $validated['foto'] = $path;
         }
-        $siswa->save();
+        // Simpan data siswa
+        $siswa = Siswa::create($validated);
+
+        // Menyimpan relasi many-to-many dengan divisi
+        $siswa->divisi()->attach($request->divisi);
 
         return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil ditambahkan');
     }
@@ -59,12 +69,17 @@ class AdminSiswaController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // Simpan file foto baru jika diupload
         if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('fotos', 'public');
-            $siswa->foto = $path;
+            $path = $request->file('foto')->store('foto_siswa', 'public');
+            $validated['foto'] = $path;
         }
 
+
         $siswa->update($validated);
+
+        // Update relasi many-to-many
+        $siswa->divisi()->sync($request->divisi);
 
         return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil diupdate');
     }

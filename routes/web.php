@@ -35,3 +35,4 @@ Route::prefix('admin')->group(function() {
 //page divisi
 Route::get('/divisis', [DivisiController::class, 'index'])->name('divisis.index');
 Route::get('/divisis/{id}', [DivisiController::class, 'show'])->name('divisis.show');
+

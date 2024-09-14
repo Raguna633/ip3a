@@ -1,26 +1,43 @@
 @extends('layouts.admin')
 
 @section('content')
-<h3>{{ isset($divisi) ? 'Edit divisi' : 'Tambah divisi' }}</h3>
+    <h1>Edit Divisi: {{ $divisi->nama_divisi }}</h1>
 
-<form action="{{ isset($divisi) ? route('admin.divisi.update', $divisi->id) : route('admin.divisi.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @if(isset($divisi))
-    @method('PUT')
-    @endif
+    <form action="{{ route('admin.divisi.update', $divisi->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <label class="form-label" for="nama_divisi">Nama Divisi:</label>
+            <input class="form-control" type="text" name="nama_divisi" id="nama_divisi" value="{{ $divisi->nama_divisi }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="foto">Foto:</label>
+            <input class="form-control" type="file" name="foto" id="foto"></input>
+        </div>
+        <div class="mb-3">
+            <!-- Tampilkan gambar yang sudah ada atau gambar default jika belum ada -->
+            <label class="form-label" for="">Gambar Sebelumnya</label>
+            <img id="imagePreview" src="{{ $divisi->foto ? asset('storage/' . $divisi->foto) : '#' }}" alt="Preview Gambar"
+                style="max-width: 200px; {{ $divisi->foto ? '' : 'display: none;' }}" />
+        </div>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </form>
 
-    <div class="mb-3">
-        <label for="nama_divisi" class="form-label">Nama Divisi</label>
-        <input type="text" class="form-control" id="nama_divisi" name="nama_divisi" value="{{ isset($divisi) ? $divisi->nama_divisi : '' }}">
-    </div>
-    <div class="mb-3">
-        <label for="foto" class="form-label">Foto</label>
-        <input type="file" class="form-control" id="foto" name="foto">
-        @if(isset($divisi) && $divisi->foto)
-        <img src="{{ asset('storage/' . $divisi->foto) }}" width="100" height="100" class="mt-3" alt="{{ $divisi->nama_divisi }}">
-        @endif
-    </div>
-    <button type="submit" class="btn btn-primary">{{ isset($divisi) ? 'Update' : 'Simpan' }}</button>
-    <a href="{{ route('admin.divisi.index') }}" class="btn btn-secondary">Kembali</a>
-</form>
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const reader = new FileReader();
+
+            reader.onload = function(){
+                const preview = document.getElementById('imagePreview');
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]); // membaca file sebagai URL data
+            }
+        }
+    </script>
+
 @endsection
