@@ -15,6 +15,11 @@ class Siswa extends Model
 
     public function divisi()
     {
-        return $this->belongsToMany(Divisi::class)->withPivot('divisis')->withTimestamps();
+        return $this->belongsToMany(Divisi::class, 'divisi_siswa', 'siswa_id', 'divisi_id');
+    }
+
+    public function divisiUtama()
+    {
+        return $this->belongsTo(Divisi::class, 'divisi_utama_id');
     }
 }

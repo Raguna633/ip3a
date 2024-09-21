@@ -1,21 +1,21 @@
 <?php
 
-use App\Http\Controllers\DivisiController;
-use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('dashboard');
-})->name('/');
-
-Route::get('/index', function() {
-    return view('page.index');
-})->name('index');
-
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\AdminSiswaController;
 use App\Http\Controllers\AdminDivisiController;
 
-Route::prefix('admin')->group(function() {
+Route::get('/', [MainController::class, 'index'])->name('/');
+Route::get('/detail/{id}', [MainController::class, 'detailDivisi'])->name('divisi.detail');
+Route::get('/divisi', [MainController::class, 'daftarDivisi'])->name('divisi.daftar');
+
+Route::get('/index', function () {
+    return view('page.index');
+})->name('index');
+
+
+Route::prefix('admin')->group(function () {
     Route::get('siswa', [AdminSiswaController::class, 'index'])->name('admin.siswa.index');
     Route::get('siswa/create', [AdminSiswaController::class, 'create'])->name('admin.siswa.create');
     Route::post('siswa/store', [AdminSiswaController::class, 'store'])->name('admin.siswa.store');
@@ -30,9 +30,3 @@ Route::prefix('admin')->group(function() {
     Route::put('divisi/{id}', [AdminDivisiController::class, 'update'])->name('admin.divisi.update');
     Route::delete('divisi/{id}', [AdminDivisiController::class, 'destroy'])->name('admin.divisi.destroy');
 });
-
-
-//page divisi
-Route::get('/divisis', [DivisiController::class, 'index'])->name('divisis.index');
-Route::get('/divisis/{id}', [DivisiController::class, 'show'])->name('divisis.show');
-

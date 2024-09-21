@@ -53,6 +53,11 @@ class AdminDivisiController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('foto_divisi', 'public');
+            $validated['foto'] = $path;
+        }
+
         $divisi->update($validated);
 
         return redirect()->route('admin.divisi.index')->with('success', 'Divisi berhasil diupdate');
