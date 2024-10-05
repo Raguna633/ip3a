@@ -9,6 +9,7 @@
 <form action="{{ route('admin.divisi.index') }}" method="GET" class="mb-3">
     <div class="form-inline">
         <select name="sort" class="form-select" onchange="this.form.submit()">
+            <option value="" {{ $sortOrder == '' ? 'selected' : '' }}>Default</option>
             <option value="asc" {{ $sortOrder == 'asc' ? 'selected' : '' }}>A-Z</option>
             <option value="desc" {{ $sortOrder == 'desc' ? 'selected' : '' }}>Z-A</option>
         </select>
@@ -46,6 +47,4 @@
         @endforeach
     </tbody>
 </table>
-
-{{ $divisi->links() }}
 @endsection

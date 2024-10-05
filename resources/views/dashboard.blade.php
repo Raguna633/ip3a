@@ -51,15 +51,47 @@
             <div class="container text-center">
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <h1 data-aos="fade-up">Slogan <span>Angkatan</span></h1>
-                    <p data-aos="fade-up" data-aos-delay="100">Osis IP3A Masa Khidmat 2024 - 2025<br></p>
+                    <p data-aos="fade-up" data-aos-delay="100">OSIS IP3A Masa Khidmat 2025 - 2026<br></p>
                     <a href="{{ route('divisi.daftar') }}">
-                        <img src="{{ asset('img/Osis IP3A Gede.png') }}" class="img-fluid hero-img" alt=""
-                            data-aos="zoom-out" data-aos-delay="300">
+                        <img id="heroImage" src="{{ asset('img/Osis IP3A Gede.png') }}" class="img-fluid hero-img"
+                            alt="" data-aos="zoom-out" data-aos-delay="300">
                     </a>
                 </div>
             </div>
-
-        </section><!-- /Hero Section -->
+        </section>
+        
+        <!-- CSS Styles -->
+        <style>
+            /* Keyframes for zoom-in animation */
+            @keyframes zoomIn {
+                0% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(1.2); /* Adjust the scale value as needed */
+                }
+            }
+        
+            /* Transition and animation class */
+            .zoom-in-click {
+                animation: zoomIn 0.5s forwards; /* 0.5s duration */
+            }
+        </style>
+        
+        <!-- JavaScript for triggering animation on click -->
+        <script>
+            document.getElementById('heroImage').addEventListener('click', function(e) {
+                // Add the animation class
+                var img = e.target;
+                img.classList.add('zoom-in-click');
+                
+                // Optional: You can remove the class after the animation to allow repeated clicks
+                setTimeout(function() {
+                    img.classList.remove('zoom-in-click');
+                }, 500); // Duration of the animation (500ms)
+            });
+        </script>
+        <!-- /Hero Section -->
 
         <!-- Featured Services Section -->
         {{-- <section id="featured-services" class="featured-services section light-background">
@@ -87,78 +119,7 @@
 
     </main>
 
-    <footer id="footer" class="footer position-relative light-background">
-
-        <div class="container footer-top">
-            <div class="row gy-4">
-                <div class="col-lg-4 col-md-6 footer-about">
-                    <a href="index.html" class="logo d-flex align-items-center">
-                        <span class="sitename">QuickStart</span>
-                    </a>
-                    <div class="footer-contact pt-3">
-                        <p>A108 Adam Street</p>
-                        <p>New York, NY 535022</p>
-                        <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                        <p><strong>Email:</strong> <span>info@example.com</span></p>
-                    </div>
-                    <div class="social-links d-flex mt-4">
-                        <a href=""><i class="bi bi-twitter-x"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Terms of service</a></li>
-                        <li><a href="#">Privacy policy</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Our Services</h4>
-                    <ul>
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">Product Management</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Graphic Design</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 col-md-12 footer-newsletter">
-                    <h4>Our Newsletter</h4>
-                    <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-                    <form action="forms/newsletter.php" method="post" class="php-email-form">
-                        <div class="newsletter-form"><input type="email" name="email"><input type="submit"
-                                value="Subscribe"></div>
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="container copyright text-center mt-4">
-            <p>© <span>Copyright</span> <strong class="px-1 sitename">QuickStart</strong><span>All Rights
-                    Reserved</span></p>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you've purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-        </div>
-
-    </footer>
+    @include('operasi.footer')
 
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i

@@ -18,7 +18,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>No</th>
+                <th>ID</th>
                 <th>Nama Lengkap</th>
                 <th>Kelas</th>
                 <th>Konsulat</th>
@@ -31,7 +31,7 @@
         <tbody>
             @foreach ($siswa as $index => $item)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $item->id }}</td>
                     <td>{{ $item->nama_lengkap }}</td>
                     <td>{{ $item->kelas }}</td>
                     <td>{{ $item->konsulat }}</td>

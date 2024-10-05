@@ -9,10 +9,16 @@ class AdminDivisiController extends Controller
 {
     public function index(Request $request)
     {
-        $sortOrder = $request->input('sort', 'asc');
-        $divisi = Divisi::orderBy('nama_divisi', $sortOrder)->paginate(10);
+        $sortOrder = $request->input('sort', null);
+
+        if ($sortOrder) {
+            $divisi = Divisi::orderBy('nama_divisi', $sortOrder)->get();
+        } else {
+            $divisi = Divisi::orderBy('id', 'asc')->get();
+        }
         return view('admin.divisi.index', compact('divisi', 'sortOrder'));
     }
+
 
     public function create()
     {
@@ -20,22 +26,22 @@ class AdminDivisiController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'nama_divisi' => 'required|string|max:255',
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg',
-    ]);
+    {
+        $validated = $request->validate([
+            'nama_divisi' => 'required|string|max:255',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
+        ]);
 
-    // Simpan file foto
-    if ($request->hasFile('foto')) {
-        $path = $request->file('foto')->store('foto_divisi', 'public');
-        $validated['foto'] = $path;
+        // Simpan file foto
+        if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('foto_divisi', 'public');
+            $validated['foto'] = $path;
+        }
+
+        Divisi::create($validated);
+
+        return redirect()->route('admin.divisi.index')->with('success', 'Divisi berhasil ditambahkan!');
     }
-
-    Divisi::create($validated);
-
-    return redirect()->route('admin.divisi.index')->with('success', 'Divisi berhasil ditambahkan!');
-}
 
 
     public function edit($id)
